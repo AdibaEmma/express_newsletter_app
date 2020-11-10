@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({
 const port = 3000;
 
 app.get('/', function (req, res) {
-    res.sendFile(`${__dirname}/signup.html`);
+    res.sendFile(__dirname + "/signup.html");
 });
 
 app.post("/", function (req, res) {
@@ -42,18 +42,31 @@ app.post("/", function (req, res) {
     }
 
     const request = https.request(url, options, function (response) {
-        response.on("data", function (data) {
+
+        if (response.statusCode === 200) {
+            res.sendFile(__dirname + "/success.html")
+        } else {
+            res.sendFile(__dirname + "/failure.html")
+        }
+
+        response.on("data", function(data) {
             console.log(JSON.parse(data));
-        })
-    })
+        });
+    });
 
     request.write(jsonData);
     request.end();
 });
 
+
+app.post("/failure", function(req, res) {
+    res.redirect("/");
+});
+
+
 app.listen(port, function () {
     console.log(`Server listening at localhost:${port}`);
-})
+});
 
 // API Key
 // 9ea37a5c24f754192667f4f93705f097-us2

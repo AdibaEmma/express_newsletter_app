@@ -49,3 +49,11 @@ margin-bottom: -1px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.jumbotron.failure {
+  background: rgb(243, 50, 50);
+}
+
+.jumbotron.failure {
+  background: rgb(181, 255, 70);
+}
